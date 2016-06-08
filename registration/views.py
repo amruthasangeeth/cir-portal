@@ -51,6 +51,7 @@ def anonymous_required(func):
         return response
     return as_view
 
+
 class UserRegistrationView(AnonymousRequiredMixin, FormView):
     template_name = "register/user/register_user.html"
     authenticated_redirect_url = reverse_lazy(u"home")
@@ -60,6 +61,8 @@ class UserRegistrationView(AnonymousRequiredMixin, FormView):
     def form_valid(self, form):
         form.save()
         return FormView.form_valid(self, form)
+
+
 
 class StudentRegistrationView( LoginRequiredMixin, FormView):
     template_name = "register/cirstaff/register_student.html"
@@ -106,7 +109,7 @@ class StudentListView(LoginRequiredMixin,ListView):
 
 class StudentListUpdateView(UpdateView):
     model = Student
-    form_class = StudentRegistrationForm
+    fields = student_fields
     template_name_suffix = '_update_form'
     success_url = '/register/cirstaff/success/'
 
